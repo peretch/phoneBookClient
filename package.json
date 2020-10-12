@@ -1,0 +1,52 @@
+{
+  "name": "phone_book_client",
+  "version": "1.0.0",
+  "description": "This is the client for phoneBookServer, made with React, NextJS and Tailwindcss",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "build-css": "tailwindcss build components/css/tailwind.css -o public/css/tailwind.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peretch/phoneBookClient.git"
+  },
+  "keywords": [
+    "react",
+    "next",
+    "phones",
+    "contacts",
+    "tailwindcss"
+  ],
+  "author": "sebastian@peretch.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peretch/phoneBookClient/issues"
+  },
+  "homepage": "https://github.com/peretch/phoneBookClient#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "next": "9.5.5",
+    "prop-types": "^15.7.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "tailwindcss": "^1.9.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-wesbos": "0.0.19",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "prettier": "^1.19.1"
+  }
+}
