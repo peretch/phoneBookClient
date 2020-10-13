@@ -6,10 +6,10 @@ import CustomButton from '../components/custom/CustomButton';
 import CustomInput from '../components/custom/CustomInput';
 import CustomLink from '../components/custom/CustomLink';
 
-const { login } = require('../lib/api');
+const { register, login } = require('../lib/api');
 const { setCredentials, getCredentials } = require('../lib/auth');
 
-const Login = () => {
+const Register = () => {
   const [state, dispatch] = useContext(Context);
   const router = useRouter();
 
@@ -17,8 +17,10 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    passwordConfirm: '',
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const checkCredentials = async () => {
     const { email, token } = await getCredentials();
@@ -31,22 +33,46 @@ const Login = () => {
     checkCredentials();
   }, []);
 
-  const loginHandler = async () => {
-    const { email, password } = formData;
+  const cleanForm = () => {
+    setFormData({
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    });
+  };
+
+  const cleanAlerts = () => {
+    setSuccess('');
+    setError('');
+  };
+
+  const handleRegister = async () => {
+    cleanAlerts();
+    const { email, password, passwordConfirm } = formData;
     setError('');
     setWaiting(true);
 
-    const { status, data } = await login({ email, password });
+    if (password !== passwordConfirm) {
+      setError('Passwords do not match');
+      setWaiting(false);
+      return;
+    }
+
+    const { status, data } = await register({ email, password });
     setWaiting(false);
 
     switch (status) {
-      case 200:
+      case 202:
         console.log({ email: data.email, token: data.token });
         await setCredentials({ email: data.email, token: data.token });
+        cleanForm();
         router.push('/');
         break;
+      case 400:
+        setError('Invalid parameters');
+        break;
       case 401:
-        setError('Invalid credentials');
+        setError(data.message);
         break;
       case 500:
         setError('A server error has ocurred');
@@ -59,7 +85,7 @@ const Login = () => {
   return (
     <div className="flex justify-center">
       <div className=" content-center h-auto w-screen sm:w-1/2 xl:w-1/3 mt-10">
-        <h1 className="text-center py-10 text-2xl">Login</h1>
+        <h1 className="text-center py-10 text-2xl">Register</h1>
         <CustomInput
           label="Email"
           onChange={e => setFormData({ ...formData, email: e.target.value })}
@@ -74,21 +100,33 @@ const Login = () => {
           placeholder="4asdX@wz1"
           value={formData.password}
         />
+        <CustomInput
+          label="Repeat password"
+          onChange={e =>
+            setFormData({ ...formData, passwordConfirm: e.target.value })
+          }
+          type="password"
+          placeholder="4asdX..."
+          value={formData.passwordConfirm}
+        />
         <div className="flex justify-center p-2">
           <CustomButton
             bgColor={!waiting ? 'blue' : 'gray'}
-            text="Login"
+            text="Register"
             waiting={waiting}
-            onClickHandler={!waiting ? () => loginHandler() : () => {}}
+            onClickHandler={!waiting ? () => handleRegister() : () => {}}
           />
         </div>
         <div className="text-center mt-2">
-          <CustomLink href="/register" color="blue" text="Register" />
+          <CustomLink href="/login" color="blue" text="Login" />
         </div>
-        <p className="text-center text-red-500 text-md py-2">{error}</p>
+        <div className="p-2">
+          <p className="text-center text-red-500">{error}</p>
+          <p className="text-center text-green-500">{success}</p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;

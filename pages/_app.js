@@ -9,7 +9,7 @@ function App({ Component, pageProps }) {
       <Head>
         <title>Peretch</title>
         <link rel="icon" href="/favicon.ico" />
-        <link href="css/tailwind.css" rel="stylesheet" />
+        <link href="/css/tailwind.css" rel="stylesheet" />
       </Head>
       <Component {...pageProps} />
     </Store>

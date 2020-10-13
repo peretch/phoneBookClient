@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import NavbarLink from './NavbarLink';
-
 const { getCredentials, clearCredentials } = require('../lib/auth');
 
 const Navbar = () => {
@@ -25,14 +23,14 @@ const Navbar = () => {
     <nav className="w-full flex items-center justify-between flex-wrap px-6 py-4 bg-gray-900">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <a href="/">
-          Contacts app
+          Phone book
           <span className="font-semibold text-xl tracking-tight" />
         </a>
       </div>
       <div className="block md:hidden">
         <button
           type="button"
-          className="flex items-center px-3 py-2 border rounded text-gray-100 border-teal-400 hover:text-white hover:border-white"
+          className="flex items-center px-3 py-2 border rounded text-gray-100 hover:text-white hover:border-white focus:outline-none"
           onClick={() => toggleMenu()}
         >
           <svg
@@ -47,10 +45,30 @@ const Navbar = () => {
       </div>
       <div className="w-full block flex-grow md:flex md:items-center md:w-auto sm:py-0 text-center sm:text-justify bg-gray-900 sm:bg-gray-900">
         <div
-          className={`text-sm md:flex-grow ${menuActive === true &&
+          className={`text-sm md:flex-grow ${menuActive === false &&
             'hidden'} md:block`}
         >
-          <NavbarLink href="https://github.com/peretch" text="GitHub" />
+          {userToken ? (
+            <button
+              type="button"
+              tabIndex={0}
+              onKeyPress={() => {}}
+              onClick={async () => {
+                await clearCredentials();
+                router.push('/login');
+              }}
+              className="block sm:invisible mt-4 md:inline-block md:mt-0 text-gray-200 mr-4 text-base hover:text-blue-200 hover:shadow-xl px-6 sm:px-2"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              className="block sm:invisible mt-4 md:inline-block md:mt-0 text-gray-200 mr-4 text-base hover:text-blue-200 hover:shadow-xl px-6 sm:px-2"
+              href="/login"
+            >
+              Login
+            </Link>
+          )}
         </div>
         <div>
           {userToken ? (

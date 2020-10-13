@@ -7,7 +7,7 @@ const CustomButton = ({ text, bgColor, onClickHandler, waiting }) => (
     tabIndex="0"
     onKeyPress={onClickHandler}
     onClick={onClickHandler}
-    className={`w-full py-2 bg-${bgColor}-800 text-white text-xl rounded-lg m-1 focus:outline-none`}
+    className={`max-w-full min-w-full p-2 bg-${bgColor}-800 text-white text-xl rounded-lg m-1 focus:outline-none`}
   >
     {!waiting ? (
       text
