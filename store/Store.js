@@ -5,6 +5,10 @@ import Reducer from './Reducer';
 
 const initialState = {
   token: null,
+  contacts: [],
+  contactsCurrentPage: 1,
+  contactsTotal: 0,
+  contactsPages: 0,
 };
 
 const Store = ({ children }) => {
