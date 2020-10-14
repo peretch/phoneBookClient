@@ -32,6 +32,7 @@ const contactSearch = async (
     return true;
   }
 
+  console.log({ currentContacts });
   if (currentContacts) {
     const contacts = await currentContacts.filter(
       contact =>
@@ -41,6 +42,7 @@ const contactSearch = async (
           search.toUpperCase()
         )
     );
+    contacts.sort((a, b) => (a.name > b.name ? 1 : -1));
     await dispatch({ type: 'SET_FILTERED_CONTACTS', payload: contacts });
   }
   return true;

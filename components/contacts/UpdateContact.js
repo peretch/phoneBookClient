@@ -28,6 +28,10 @@ const UpdateContact = ({ selectedContact, onUpdate }) => {
       return contact;
     });
     await dispatch({ type: 'SET_CONTACTS', payload: newContactsState });
+    await dispatch({
+      type: 'SET_FILTERED_CONTACTS',
+      payload: newContactsState,
+    });
     onUpdate();
   };
 

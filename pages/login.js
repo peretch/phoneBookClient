@@ -82,8 +82,15 @@ const Login = () => {
             onClickHandler={!waiting ? () => loginHandler() : () => {}}
           />
         </div>
-        <div className="text-center mt-2">
+        <div className="text-center my-2 text-xl">
           <CustomLink href="/register" color="blue" text="Register" />
+        </div>
+        <div className="text-center my-4">
+          <CustomLink
+            href="/recovery"
+            color="blue"
+            text="forgot your passowrd?"
+          />
         </div>
         <p className="text-center text-red-500 text-md py-2">{error}</p>
       </div>

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { Context } from '../store/Store';
 
 import CustomButton from '../components/custom/CustomButton';
 import CustomInput from '../components/custom/CustomInput';
 import CustomLink from '../components/custom/CustomLink';
 
-const { register } = require('../lib/api');
+const { recovery } = require('../lib/api');
 const { setCredentials, getCredentials } = require('../lib/auth');
 
-const Register = () => {
+const Recovery = () => {
   const router = useRouter();
 
   const [waiting, setWaiting] = useState(false);
@@ -21,7 +22,7 @@ const Register = () => {
   const [success, setSuccess] = useState('');
 
   const checkCredentials = async () => {
-    const { token } = await getCredentials();
+    const { email, token } = await getCredentials();
     if (token !== null) {
       router.push('/');
     }
@@ -29,7 +30,6 @@ const Register = () => {
 
   useEffect(() => {
     checkCredentials();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const cleanForm = () => {
@@ -45,7 +45,7 @@ const Register = () => {
     setError('');
   };
 
-  const handleRegister = async () => {
+  const handleRecovery = async () => {
     cleanAlerts();
     const { email, password, passwordConfirm } = formData;
     setError('');
@@ -57,33 +57,20 @@ const Register = () => {
       return;
     }
 
-    const { status, data } = await register({ email, password });
+    const { status, data } = await recovery({ email });
     setWaiting(false);
 
-    switch (status) {
-      case 202:
-        await setCredentials({ email: data.email, token: data.token });
-        cleanForm();
-        router.push('/');
-        break;
-      case 400:
-        setError('Invalid parameters');
-        break;
-      case 401:
-        setError(data.message);
-        break;
-      case 500:
-        setError('A server error has ocurred');
-        break;
-      default:
-        break;
+    if (status === 500) {
+      setError('Server error');
     }
+
+    setSuccess('Search in your email');
   };
 
   return (
     <div className="flex justify-center">
       <div className=" content-center h-auto w-screen sm:w-1/2 xl:w-1/3 mt-10">
-        <h1 className="text-center py-10 text-2xl">Register</h1>
+        <h1 className="text-center py-10 text-2xl">Password recovery</h1>
         <CustomInput
           label="Email"
           onChange={e => setFormData({ ...formData, email: e.target.value })}
@@ -91,28 +78,12 @@ const Register = () => {
           placeholder="example@mail.com"
           value={formData.email}
         />
-        <CustomInput
-          label="Password"
-          onChange={e => setFormData({ ...formData, password: e.target.value })}
-          type="password"
-          placeholder="4asdX@wz1"
-          value={formData.password}
-        />
-        <CustomInput
-          label="Repeat password"
-          onChange={e =>
-            setFormData({ ...formData, passwordConfirm: e.target.value })
-          }
-          type="password"
-          placeholder="4asdX..."
-          value={formData.passwordConfirm}
-        />
         <div className="flex justify-center p-2">
           <CustomButton
             bgColor={!waiting ? 'blue' : 'gray'}
-            text="Register"
+            text="Send by email"
             waiting={waiting}
-            onClickHandler={!waiting ? () => handleRegister() : () => {}}
+            onClickHandler={!waiting ? () => handleRecovery() : () => {}}
           />
         </div>
         <div className="text-center mt-2">
@@ -127,4 +98,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Recovery;

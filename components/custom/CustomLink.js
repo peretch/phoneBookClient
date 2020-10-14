@@ -4,9 +4,7 @@ import Link from 'next/link';
 
 const CustomLink = ({ text, color, href }) => (
   <Link href={href}>
-    <a className={`w-full py-2 text-${color}-500 text-xl rounded-lg m-1`}>
-      {text}
-    </a>
+    <a className={`w-full py-2 text-${color}-500 rounded-lg m-1`}>{text}</a>
   </Link>
 );
 
