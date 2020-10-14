@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const { getCredentials, clearCredentials } = require('../lib/auth');
 
-const Navbar = () => {
+const Navbar = ({ handleIndex }) => {
   const [menuActive, setMenuActive] = useState(false);
   const [userToken, setUserToken] = useState(false);
 
@@ -22,10 +23,15 @@ const Navbar = () => {
   return (
     <nav className="w-full flex items-center justify-between flex-wrap px-6 py-4 bg-gray-900">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <a href="/">
+        <button
+          type="button"
+          onClick={() => handleIndex()}
+          tabIndex={0}
+          className="focus:outline-none"
+        >
           Phone book
           <span className="font-semibold text-xl tracking-tight" />
-        </a>
+        </button>
       </div>
       <div className="block md:hidden">
         <button
@@ -94,6 +100,10 @@ const Navbar = () => {
       </div>
     </nav>
   );
+};
+
+Navbar.propTypes = {
+  handleIndex: PropTypes.func,
 };
 
 export default Navbar;

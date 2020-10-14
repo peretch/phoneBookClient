@@ -1,5 +1,15 @@
-const { getContacts } = require('../lib/api');
-const { getCredentials } = require('../lib/auth');
+const { getContacts, login } = require('../lib/api');
+const { getCredentials, setCredentials } = require('../lib/auth');
+
+const userLogin = async (dispatch, payload) => {
+  const { email, password } = payload;
+  const { status, data } = await login({ email, password });
+
+  if (status === 200) {
+    await setCredentials({ email: data.email, token: data.token });
+  }
+  return { status, data };
+};
 
 const contactSearch = async (dispatch, payload) => {
   const { token } = await getCredentials();
@@ -26,4 +36,4 @@ const contactSearch = async (dispatch, payload) => {
   });
 };
 
-module.exports = { contactSearch };
+module.exports = { contactSearch, userLogin };

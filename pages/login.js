@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Context } from '../store/Store';
+import { userLogin, contactSearch } from '../store/Actions';
 
 import CustomButton from '../components/custom/CustomButton';
 import CustomInput from '../components/custom/CustomInput';
@@ -27,16 +28,16 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    checkCredentials();
-  }, []);
+  // useEffect(() => {
+  //   checkCredentials();
+  // }, []);
 
   const loginHandler = async () => {
-    const { email, password } = formData;
     setError('');
     setWaiting(true);
-
-    const { status, data } = await login({ email, password });
+    const { email, password } = formData;
+    const { status, data } = await userLogin(dispatch, { email, password });
+    await contactSearch(dispatch, {});
     setWaiting(false);
 
     switch (status) {

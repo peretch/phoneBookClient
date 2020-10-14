@@ -7,7 +7,7 @@ function App({ Component, pageProps }) {
   return (
     <Store>
       <Head>
-        <title>Peretch</title>
+        <title>Phone book app</title>
         <link rel="icon" href="/favicon.ico" />
         <link href="/css/tailwind.css" rel="stylesheet" />
       </Head>
