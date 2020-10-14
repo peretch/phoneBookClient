@@ -101,7 +101,7 @@ const Contact = () => {
         label="Phone"
         onChange={e => setFormData({ ...formData, phone: e.target.value })}
         type="text"
-        placeholder="Sagan"
+        placeholder="+5980991234567"
         value={formData.phone}
       />
       <div className="flex justify-center p-2">
