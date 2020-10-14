@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import CustomInput from '../custom/CustomInput';
 import { Context } from '../../store/Store';
@@ -9,8 +9,8 @@ const Searchbar = () => {
 
   const handleInputChange = e => {
     contactSearch(dispatch, {
-      input: e.target.value,
-      page: state.contactsCurrentPage,
+      currentContacts: state.contacts,
+      search: e.target.value,
     });
   };
 

@@ -11,29 +11,39 @@ const userLogin = async (dispatch, payload) => {
   return { status, data };
 };
 
-const contactSearch = async (dispatch, payload) => {
-  const { token } = await getCredentials();
-  const { input: search, page: currentPage } = payload;
-
-  const { status, data } = await getContacts({
-    token,
-    page: currentPage,
+const contactSearch = async (
+  dispatch,
+  { currentContacts, search, onlineSearch = false }
+) => {
+  dispatch({
+    type: 'SET_SEARCH',
     search,
   });
 
-  if (status === 200) {
-    const { contacts, totalContacts, totalPages, page } = data;
-    dispatch({ type: 'SET_CONTACTS_SEARCH', payload: search });
-    dispatch({ type: 'SET_CONTACTS', payload: contacts });
-    dispatch({ type: 'SET_CONTACTS_CURRENT_PAGE', payload: page });
-    dispatch({ type: 'SET_CONTACTS_TOTAL', payload: totalContacts });
-    dispatch({ type: 'SET_CONTACTS_PAGES', payload: totalPages });
+  if (onlineSearch) {
+    const { token } = await getCredentials();
+    const { status, data } = await getContacts({
+      token,
+      search,
+    });
+    if (status === 200) {
+      dispatch({ type: 'SET_FILTERED_CONTACTS', payload: data });
+    }
+    return true;
   }
 
-  dispatch({
-    type: 'SET_SEARCH',
-    payload: search,
-  });
+  if (currentContacts) {
+    const contacts = await currentContacts.filter(
+      contact =>
+        contact.name.toUpperCase().includes(search.toUpperCase()) ||
+        contact.lastname.toUpperCase().includes(search.toUpperCase()) ||
+        `${contact.name.toUpperCase()} ${contact.lastname.toUpperCase()}`.includes(
+          search.toUpperCase()
+        )
+    );
+    await dispatch({ type: 'SET_FILTERED_CONTACTS', payload: contacts });
+  }
+  return true;
 };
 
 module.exports = { contactSearch, userLogin };

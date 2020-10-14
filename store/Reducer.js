@@ -24,6 +24,12 @@ const Reducer = (state, action) => {
         contacts: action.payload,
       };
 
+    case 'SET_FILTERED_CONTACTS':
+      return {
+        ...state,
+        filteredContacts: action.payload,
+      };
+
     case 'SET_CONTACTS_CURRENT_PAGE':
       return {
         ...state,

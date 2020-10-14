@@ -53,9 +53,9 @@ const ContactList = ({
             </tr>
           </thead>
           <tbody>
-            {typeof state.contacts !== 'undefined' &&
-              state.contacts.length > 0 &&
-              state.contacts.map((contact, key) => (
+            {typeof state.filteredContacts !== 'undefined' &&
+              state.filteredContacts.length > 0 &&
+              state.filteredContacts.map((contact, key) => (
                 <tr key={`contact-${contact._id}`}>
                   <td
                     className={`p-3 text-center text-blue-500 ${key % 2 === 0 &&

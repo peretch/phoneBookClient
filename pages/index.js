@@ -34,11 +34,8 @@ const Home = () => {
       search: state.contactsSearch,
     });
     if (status === 200) {
-      const { contacts, totalContacts, totalPages, page } = data;
+      const contacts = data;
       dispatch({ type: 'SET_CONTACTS', payload: contacts });
-      dispatch({ type: 'SET_CONTACTS_CURRENT_PAGE', payload: page });
-      dispatch({ type: 'SET_CONTACTS_TOTAL', payload: totalContacts });
-      dispatch({ type: 'SET_CONTACTS_PAGES', payload: totalPages });
     } else {
       setError('Failed to get contacts');
     }

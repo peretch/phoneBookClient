@@ -37,7 +37,7 @@ const Login = () => {
     setWaiting(true);
     const { email, password } = formData;
     const { status, data } = await userLogin(dispatch, { email, password });
-    await contactSearch(dispatch, {});
+    await contactSearch(dispatch, { search: '' });
     setWaiting(false);
 
     switch (status) {
