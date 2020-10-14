@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Context } from '../store/Store';
 
 import Navbar from '../components/Navbar';
+import Searchbar from '../components/Searchbar';
 
 const { getCredentials } = require('../lib/auth');
 const { getContacts } = require('../lib/api');
@@ -26,6 +27,7 @@ const Home = () => {
     const { status, data } = await getContacts({
       token,
       page: state.contactsCurrentPage,
+      search: state.contactsSearch,
     });
     if (status === 200) {
       const { contacts, totalContacts, totalPages, page } = data;
@@ -43,6 +45,7 @@ const Home = () => {
     fetchContacts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.contactsCurrentPage]);
+
   return (
     <div className="h-screen w-screen relative">
       <Navbar />
@@ -69,6 +72,9 @@ const Home = () => {
                   </svg>
                 </a>
               </Link>
+            </div>
+            <div className="py-1">
+              <Searchbar />
             </div>
             <table className="w-full table-auto">
               <thead className="bg-gray-300 text-black">

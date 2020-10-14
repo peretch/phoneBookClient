@@ -41,7 +41,6 @@ const Login = () => {
 
     switch (status) {
       case 200:
-        console.log({ email: data.email, token: data.token });
         await setCredentials({ email: data.email, token: data.token });
         router.push('/');
         break;

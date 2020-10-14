@@ -63,7 +63,6 @@ const Register = () => {
 
     switch (status) {
       case 202:
-        console.log({ email: data.email, token: data.token });
         await setCredentials({ email: data.email, token: data.token });
         cleanForm();
         router.push('/');

@@ -9,6 +9,7 @@ const initialState = {
   contactsCurrentPage: 1,
   contactsTotal: 0,
   contactsPages: 0,
+  contactsSearch: '',
 };
 
 const Store = ({ children }) => {

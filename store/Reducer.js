@@ -12,6 +12,12 @@ const Reducer = (state, action) => {
         token: action.payload,
       };
 
+    case 'SET_CONTACTS_SEARCH':
+      return {
+        ...state,
+        contactsSearch: action.payload,
+      };
+
     case 'SET_CONTACTS':
       return {
         ...state,
