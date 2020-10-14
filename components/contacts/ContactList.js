@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Context } from '../store/Store';
+import { Context } from '../../store/Store';
 
 import Searchbar from './Searchbar';
 
@@ -143,6 +143,7 @@ const ContactList = ({
 ContactList.propTypes = {
   handleCreateContact: PropTypes.func,
   handleSelectedContact: PropTypes.func,
+  handleDeleteContact: PropTypes.func,
 };
 
 export default ContactList;

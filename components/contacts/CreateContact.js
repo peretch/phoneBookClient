@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { Context } from '../store/Store';
+import { Context } from '../../store/Store';
 
-import CustomInput from './custom/CustomInput';
-import CustomButton from './custom/CustomButton';
+import CustomInput from '../custom/CustomInput';
+import CustomButton from '../custom/CustomButton';
 
-const { getCredentials } = require('../lib/auth');
-const { createContact } = require('../lib/api');
+const { getCredentials } = require('../../lib/auth');
+const { createContact } = require('../../lib/api');
 
 const CreateContact = () => {
   const [state, dispatch] = useContext(Context);

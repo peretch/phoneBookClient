@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import CustomButton from './custom/CustomButton';
+import CustomButton from '../custom/CustomButton';
 
 const FetchFailure = ({ reload }) => {
   const [waiting, setWaiting] = useState(false);

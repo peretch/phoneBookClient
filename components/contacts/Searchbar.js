@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
-import CustomInput from './custom/CustomInput';
-import { Context } from '../store/Store';
-import { contactSearch } from '../store/Actions';
+import CustomInput from '../custom/CustomInput';
+import { Context } from '../../store/Store';
+import { contactSearch } from '../../store/Actions';
 
 const Searchbar = () => {
   const [state, dispatch] = useContext(Context);

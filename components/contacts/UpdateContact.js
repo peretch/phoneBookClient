@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Context } from '../store/Store';
+import { Context } from '../../store/Store';
 
-import CustomButton from './custom/CustomButton';
-import CustomInput from './custom/CustomInput';
+import CustomButton from '../custom/CustomButton';
+import CustomInput from '../custom/CustomInput';
 
 const UpdateContact = ({ selectedContact, onUpdate }) => {
   const [state, dispatch] = useContext(Context);

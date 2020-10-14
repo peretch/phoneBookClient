@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { Context } from '../store/Store';
 
 import Navbar from '../components/Navbar';
-import UpdateContact from '../components/UpdateContact';
-import CreateContact from '../components/CreateContact';
-import ContactList from '../components/ContactList';
-import FetchFailure from '../components/FetchFailure';
+import UpdateContact from '../components/contacts/UpdateContact';
+import CreateContact from '../components/contacts/CreateContact';
+import ContactList from '../components/contacts/ContactList';
+import FetchFailure from '../components/contacts/FetchFailure';
 
 const { getCredentials } = require('../lib/auth');
 const { getContacts, deleteContact } = require('../lib/api');
