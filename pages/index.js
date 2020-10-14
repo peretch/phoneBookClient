@@ -36,6 +36,7 @@ const Home = () => {
     if (status === 200) {
       const contacts = data;
       dispatch({ type: 'SET_CONTACTS', payload: contacts });
+      dispatch({ type: 'SET_FILTERED_CONTACTS', payload: contacts });
     } else {
       setError('Failed to get contacts');
     }

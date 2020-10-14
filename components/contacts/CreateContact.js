@@ -68,6 +68,7 @@ const CreateContact = () => {
         type: 'SET_CONTACTS',
         payload: clone,
       });
+      dispatch({ type: 'SET_FILTERED_CONTACTS', payload: clone });
     }
 
     switch (status) {

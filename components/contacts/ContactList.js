@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../store/Store';
 
@@ -10,7 +10,6 @@ const ContactList = ({
   handleDeleteContact,
 }) => {
   const [state, dispatch] = useContext(Context);
-  const [error, setError] = useState('');
   return (
     <div className="content-center h-auto w-screen">
       <div className="overflow-y-auto w-full">
@@ -18,7 +17,6 @@ const ContactList = ({
           <span className="text-xl shadow-2xl text-white font-medium">
             Contact list
           </span>
-          {/* <Link href="/contacts/create"> */}
           <button
             type="button"
             tabIndex={0}
@@ -39,7 +37,6 @@ const ContactList = ({
               />
             </svg>
           </button>
-          {/* </Link> */}
         </div>
         <div className="py-1">
           <Searchbar />
@@ -96,45 +93,6 @@ const ContactList = ({
               ))}
           </tbody>
         </table>
-        <p className="text-red-500 text-md">{error}</p>
-      </div>
-
-      <div className="py-4 w-screen bg-blue-900 text-white">
-        <div className="flex justify-between mt-4 mx-6 ">
-          <button
-            type="button"
-            tabIndex={0}
-            onKeyPress={() => {}}
-            className="text-gray-200 text-lg float-left"
-            onClick={() => {
-              if (state.contactsCurrentPage > 1) {
-                dispatch({
-                  type: 'SET_CONTACTS_CURRENT_PAGE',
-                  payload: state.contactsCurrentPage - 1,
-                });
-              }
-            }}
-          >{`${'<'} Prev`}</button>
-          <button
-            type="button"
-            tabIndex={0}
-            onKeyPress={() => {}}
-            className="text-gray-200 text-lg float-right"
-            onClick={() => {
-              if (state.contactsCurrentPage < state.contactsPages) {
-                dispatch({
-                  type: 'SET_CONTACTS_CURRENT_PAGE',
-                  payload: state.contactsCurrentPage + 1,
-                });
-              }
-            }}
-          >{`Next ${'>'}`}</button>
-        </div>
-        <div className="flex justify-center mt-4">
-          <p className="text-lg">
-            Page {state.contactsCurrentPage} of {state.contactsPages}
-          </p>
-        </div>
       </div>
     </div>
   );
